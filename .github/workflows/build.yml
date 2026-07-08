@@ -1,0 +1,31 @@
+name: Build NkxToolUI
+
+on:
+  push:
+    branches:
+      - main
+      - master
+      - develop
+  pull_request:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Display .NET info
+        run: dotnet --info
+
+      - name: Restore
+        run: dotnet restore NkxToolUI.csproj
+
+      - name: Build
+        run: dotnet build NkxToolUI.csproj --configuration Release --no-restore

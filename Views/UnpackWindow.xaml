@@ -1,0 +1,126 @@
+<Window x:Class="NkxToolUI.Views.UnpackWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Unpack NKX Archive"
+        Height="700"
+        Width="940"
+        MinHeight="620"
+        MinWidth="780"
+        WindowStartupLocation="CenterScreen">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0">
+            <TextBlock x:Name="HeaderTextBlock"
+                       FontSize="26"
+                       FontWeight="Bold" />
+            <TextBlock x:Name="DescriptionTextBlock"
+                       Margin="0,8,0,0"
+                       Foreground="{StaticResource MutedTextBrush}"
+                       TextWrapping="Wrap" />
+        </StackPanel>
+
+        <Grid Grid.Row="1" Margin="0,20,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <DockPanel>
+                <TextBlock x:Name="InputArchivesLabel"
+                           FontWeight="SemiBold"
+                           VerticalAlignment="Center" />
+                <StackPanel DockPanel.Dock="Right"
+                            Orientation="Horizontal"
+                            HorizontalAlignment="Right">
+                    <Button x:Name="AddArchivesButton"
+                            Width="140"
+                            Style="{StaticResource SecondaryButtonStyle}"
+                            Click="AddArchivesButton_OnClick" />
+                    <Button x:Name="RemoveSelectedButton"
+                            Width="140"
+                            Margin="0"
+                            Style="{StaticResource SecondaryButtonStyle}"
+                            Click="RemoveSelectedButton_OnClick" />
+                </StackPanel>
+            </DockPanel>
+
+            <ListBox x:Name="ArchivesListBox"
+                     Grid.Row="1"
+                     Margin="0,8,0,0"
+                     Height="150"
+                     SelectionMode="Extended" />
+        </Grid>
+
+        <Grid Grid.Row="2" Margin="0,16,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="140" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock x:Name="OutputFolderLabel"
+                       VerticalAlignment="Center"
+                       FontWeight="SemiBold" />
+            <TextBox x:Name="OutputFolderTextBox"
+                     Grid.Column="1" />
+            <Button x:Name="BrowseOutputFolderButton"
+                    Grid.Column="2"
+                    Margin="12,6,0,0"
+                    Style="{StaticResource SecondaryButtonStyle}"
+                    Click="BrowseOutputFolderButton_OnClick" />
+        </Grid>
+
+        <Border Grid.Row="3"
+                Margin="0,18,0,0"
+                Padding="14"
+                Background="{StaticResource PanelBrush}"
+                BorderBrush="{StaticResource BorderBrush}"
+                BorderThickness="1"
+                CornerRadius="8">
+            <CheckBox x:Name="CreateSubfoldersCheckBox" />
+        </Border>
+
+        <TextBlock x:Name="LogLabel"
+                   Grid.Row="4"
+                   Margin="0,18,0,8"
+                   FontWeight="SemiBold" />
+
+        <TextBox x:Name="LogTextBox"
+                 Grid.Row="5"
+                 AcceptsReturn="True"
+                 TextWrapping="Wrap"
+                 VerticalScrollBarVisibility="Auto"
+                 HorizontalScrollBarVisibility="Auto"
+                 IsReadOnly="True"
+                 FontFamily="Consolas" />
+
+        <DockPanel Grid.Row="6" Margin="0,18,0,0">
+            <TextBlock x:Name="StatusTextBlock"
+                       VerticalAlignment="Center"
+                       Foreground="{StaticResource MutedTextBrush}" />
+
+            <StackPanel DockPanel.Dock="Right"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Right">
+                <Button x:Name="RunUnpackButton"
+                        Width="150"
+                        Style="{StaticResource PrimaryButtonStyle}"
+                        Click="RunUnpackButton_OnClick" />
+                <Button x:Name="CloseWindowButton"
+                        Width="110"
+                        Margin="0"
+                        Style="{StaticResource SecondaryButtonStyle}"
+                        Click="CloseWindowButton_OnClick" />
+            </StackPanel>
+        </DockPanel>
+    </Grid>
+</Window>

@@ -1,0 +1,40 @@
+<Window x:Class="NkxToolUI.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="NkxToolUI"
+        Height="360"
+        Width="520"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen">
+    <Grid Margin="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="24" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0">
+            <TextBlock x:Name="HeaderTextBlock"
+                       FontSize="28"
+                       FontWeight="Bold"
+                       Foreground="{StaticResource HeaderTextBrush}" />
+            <TextBlock x:Name="DescriptionTextBlock"
+                       Margin="0,8,0,0"
+                       Foreground="{StaticResource MutedTextBrush}"
+                       TextWrapping="Wrap" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" VerticalAlignment="Center">
+            <Button x:Name="PackButton"
+                    Style="{StaticResource BigActionButtonStyle}"
+                    Click="PackButton_OnClick" />
+            <Button x:Name="UnpackButton"
+                    Style="{StaticResource BigActionButtonStyle}"
+                    Click="UnpackButton_OnClick" />
+            <Button x:Name="BrowseButton"
+                    Style="{StaticResource BigActionButtonStyle}"
+                    Margin="0"
+                    Click="BrowseButton_OnClick" />
+        </StackPanel>
+    </Grid>
+</Window>

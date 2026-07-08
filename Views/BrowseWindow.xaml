@@ -1,0 +1,119 @@
+<Window x:Class="NkxToolUI.Views.BrowseWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:NkxToolUI.Views"
+        Title="Browse NKX Archive"
+        Height="720"
+        Width="1120"
+        MinHeight="620"
+        MinWidth="920"
+        WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <HierarchicalDataTemplate DataType="{x:Type local:ArchiveTreeNode}"
+                                  ItemsSource="{Binding Children}">
+            <TextBlock Text="{Binding Name}" />
+        </HierarchicalDataTemplate>
+    </Window.Resources>
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="160" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0">
+            <TextBlock x:Name="HeaderTextBlock"
+                       FontSize="26"
+                       FontWeight="Bold" />
+            <TextBlock x:Name="DescriptionTextBlock"
+                       Margin="0,8,0,0"
+                       Foreground="{StaticResource MutedTextBrush}"
+                       TextWrapping="Wrap" />
+        </StackPanel>
+
+        <Grid Grid.Row="1" Margin="0,20,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="120" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="130" />
+                <ColumnDefinition Width="110" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock x:Name="ArchivePathLabel"
+                       VerticalAlignment="Center"
+                       FontWeight="SemiBold" />
+            <TextBox x:Name="ArchivePathTextBox"
+                     Grid.Column="1" />
+            <Button x:Name="BrowseArchiveButton"
+                    Grid.Column="2"
+                    Margin="12,6,0,0"
+                    Style="{StaticResource SecondaryButtonStyle}"
+                    Click="BrowseArchiveButton_OnClick" />
+            <Button x:Name="RefreshButton"
+                    Grid.Column="3"
+                    Margin="12,6,0,0"
+                    Style="{StaticResource PrimaryButtonStyle}"
+                    Click="RefreshButton_OnClick" />
+        </Grid>
+
+        <TextBlock x:Name="StatusTextBlock"
+                   Grid.Row="2"
+                   Margin="0,10,0,0"
+                   Foreground="{StaticResource MutedTextBrush}" />
+
+        <Grid Grid.Row="3" Margin="0,14,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="12" />
+                <ColumnDefinition Width="3*" />
+            </Grid.ColumnDefinitions>
+
+            <GroupBox x:Name="TreeGroupBox"
+                      Grid.Column="0"
+                      Padding="8">
+                <TreeView x:Name="EntriesTreeView"
+                          SelectedItemChanged="EntriesTreeView_OnSelectedItemChanged" />
+            </GroupBox>
+
+            <GroupBox x:Name="DetailsGroupBox"
+                      Grid.Column="2"
+                      Padding="8">
+                <DataGrid x:Name="EntriesDataGrid"
+                          SelectionMode="Single">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn x:Name="NameColumn"
+                                            Binding="{Binding Name}"
+                                            Width="2*" />
+                        <DataGridTextColumn x:Name="TypeColumn"
+                                            Binding="{Binding ItemType}"
+                                            Width="*" />
+                        <DataGridTextColumn x:Name="PathColumn"
+                                            Binding="{Binding FullPath}"
+                                            Width="3*" />
+                        <DataGridTextColumn x:Name="SizeColumn"
+                                            Binding="{Binding SizeText}"
+                                            Width="*" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </GroupBox>
+        </Grid>
+
+        <TextBlock x:Name="OutputLabel"
+                   Grid.Row="4"
+                   Margin="0,18,0,8"
+                   FontWeight="SemiBold" />
+
+        <TextBox x:Name="OutputTextBox"
+                 Grid.Row="5"
+                 AcceptsReturn="True"
+                 TextWrapping="Wrap"
+                 VerticalScrollBarVisibility="Auto"
+                 HorizontalScrollBarVisibility="Auto"
+                 IsReadOnly="True"
+                 FontFamily="Consolas" />
+    </Grid>
+</Window>

@@ -1,0 +1,164 @@
+<Window x:Class="NkxToolUI.Views.PackWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Pack NKX Archive"
+        Height="760"
+        Width="940"
+        MinHeight="680"
+        MinWidth="800"
+        WindowStartupLocation="CenterScreen">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0">
+            <TextBlock x:Name="HeaderTextBlock"
+                       FontSize="26"
+                       FontWeight="Bold" />
+            <TextBlock x:Name="DescriptionTextBlock"
+                       Margin="0,8,0,0"
+                       Foreground="{StaticResource MutedTextBrush}"
+                       TextWrapping="Wrap" />
+        </StackPanel>
+
+        <GroupBox x:Name="ModeGroupBox"
+                  Grid.Row="1"
+                  Margin="0,18,0,0"
+                  Padding="14">
+            <StackPanel>
+                <RadioButton x:Name="FolderModeRadioButton"
+                             Margin="0,0,0,8"
+                             Checked="PackModeRadioButton_OnChecked" />
+                <RadioButton x:Name="FileListModeRadioButton"
+                             Checked="PackModeRadioButton_OnChecked" />
+            </StackPanel>
+        </GroupBox>
+
+        <Grid Grid.Row="2" Margin="0,16,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="140" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock x:Name="SourceFolderLabel"
+                       VerticalAlignment="Center"
+                       FontWeight="SemiBold" />
+            <TextBox x:Name="SourceFolderTextBox"
+                     Grid.Column="1" />
+            <Button x:Name="BrowseSourceFolderButton"
+                    Grid.Column="2"
+                    Margin="12,6,0,0"
+                    Style="{StaticResource SecondaryButtonStyle}"
+                    Click="BrowseSourceFolderButton_OnClick" />
+        </Grid>
+
+        <Grid Grid.Row="3" Margin="0,12,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="140" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock x:Name="FileListLabel"
+                       VerticalAlignment="Center"
+                       FontWeight="SemiBold" />
+            <TextBox x:Name="FileListTextBox"
+                     Grid.Column="1" />
+            <Button x:Name="BrowseFileListButton"
+                    Grid.Column="2"
+                    Margin="12,6,0,0"
+                    Style="{StaticResource SecondaryButtonStyle}"
+                    Click="BrowseFileListButton_OnClick" />
+        </Grid>
+
+        <Grid Grid.Row="4" Margin="0,12,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="140" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock x:Name="RootPathLabel"
+                       VerticalAlignment="Center"
+                       FontWeight="SemiBold" />
+            <TextBox x:Name="RootPathTextBox"
+                     Grid.Column="1" />
+            <Button x:Name="BrowseRootPathButton"
+                    Grid.Column="2"
+                    Margin="12,6,0,0"
+                    Style="{StaticResource SecondaryButtonStyle}"
+                    Click="BrowseRootPathButton_OnClick" />
+        </Grid>
+
+        <Grid Grid.Row="5" Margin="0,12,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="140" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock x:Name="OutputArchiveLabel"
+                       VerticalAlignment="Center"
+                       FontWeight="SemiBold" />
+            <TextBox x:Name="OutputArchiveTextBox"
+                     Grid.Column="1" />
+            <Button x:Name="BrowseOutputArchiveButton"
+                    Grid.Column="2"
+                    Margin="12,6,0,0"
+                    Style="{StaticResource SecondaryButtonStyle}"
+                    Click="BrowseOutputArchiveButton_OnClick" />
+        </Grid>
+
+        <Border Grid.Row="6"
+                Margin="0,18,0,0"
+                Padding="14"
+                Background="{StaticResource PanelBrush}"
+                BorderBrush="{StaticResource BorderBrush}"
+                BorderThickness="1"
+                CornerRadius="8">
+            <TextBlock x:Name="HintTextBlock"
+                       Foreground="{StaticResource MutedTextBrush}"
+                       TextWrapping="Wrap" />
+        </Border>
+
+        <TextBox x:Name="LogTextBox"
+                 Grid.Row="7"
+                 Margin="0,18,0,0"
+                 AcceptsReturn="True"
+                 TextWrapping="Wrap"
+                 VerticalScrollBarVisibility="Auto"
+                 HorizontalScrollBarVisibility="Auto"
+                 IsReadOnly="True"
+                 FontFamily="Consolas" />
+
+        <DockPanel Grid.Row="8" Margin="0,18,0,0">
+            <TextBlock x:Name="StatusTextBlock"
+                       VerticalAlignment="Center"
+                       Foreground="{StaticResource MutedTextBrush}" />
+
+            <StackPanel DockPanel.Dock="Right"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Right">
+                <Button x:Name="RunPackButton"
+                        Width="150"
+                        Style="{StaticResource PrimaryButtonStyle}"
+                        Click="RunPackButton_OnClick" />
+                <Button x:Name="CloseWindowButton"
+                        Width="110"
+                        Margin="0"
+                        Style="{StaticResource SecondaryButtonStyle}"
+                        Click="CloseWindowButton_OnClick" />
+            </StackPanel>
+        </DockPanel>
+    </Grid>
+</Window>
