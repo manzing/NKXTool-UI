@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Text;
+using System.Text.Json;
 
 namespace NkxToolUI.Services;
 
@@ -65,7 +66,8 @@ public sealed class NkxToolRunner
                 ProcessStarted = false,
                 ExecutablePath = executablePath,
                 CommandLine = commandLine,
-                ExceptionMessage = $"NkxTool.exe was not found. Expected path: {executablePath}"
+                ExceptionMessage =
+                    $"NkxTool.exe was not found. Checked configured path and default locations. Current resolved path: {executablePath}"
             };
         }
 
@@ -189,15 +191,18 @@ public sealed class NkxToolRunner
 
     private string ResolveExecutablePath()
     {
+        var configuredPath = LoadConfiguredExecutablePath();
+
         var candidates = new[]
         {
             _customExecutablePath,
+            configuredPath,
             Path.Combine(AppContext.BaseDirectory, "NkxTool.exe"),
-            Path.Combine(Environment.CurrentDirectory, "NkxTool.exe"),
-            Path.Combine(AppContext.BaseDirectory, "Tools", "NkxTool.exe")
+            Path.Combine(AppContext.BaseDirectory, "Tools", "NkxTool.exe"),
+            Path.Combine(Environment.CurrentDirectory, "NkxTool.exe")
         }
         .Where(path => !string.IsNullOrWhiteSpace(path))
-        .Select(path => Path.GetFullPath(path!))
+        .Select(path => Path.GetFullPath(Environment.ExpandEnvironmentVariables(path!)))
         .Distinct(StringComparer.OrdinalIgnoreCase);
 
         foreach (var candidate in candidates)
@@ -208,7 +213,40 @@ public sealed class NkxToolRunner
             }
         }
 
-        return Path.Combine(AppContext.BaseDirectory, "NkxTool.exe");
+        return configuredPath is not null
+            ? Path.GetFullPath(Environment.ExpandEnvironmentVariables(configuredPath))
+            : Path.Combine(AppContext.BaseDirectory, "NkxTool.exe");
+    }
+
+    private static string? LoadConfiguredExecutablePath()
+    {
+        try
+        {
+            var settingsPath = Path.Combine(AppContext.BaseDirectory, "nkxtoolsettings.json");
+            if (!File.Exists(settingsPath))
+            {
+                return null;
+            }
+
+            var json = File.ReadAllText(settingsPath);
+            var settings = JsonSerializer.Deserialize<NkxToolSettings>(
+                json,
+                new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                });
+
+            if (string.IsNullOrWhiteSpace(settings?.NkxToolPath))
+            {
+                return null;
+            }
+
+            return settings.NkxToolPath.Trim();
+        }
+        catch
+        {
+            return null;
+        }
     }
 
     private static string BuildCommandLine(string executablePath, IReadOnlyList<string> arguments)
@@ -321,6 +359,11 @@ public sealed class NkxToolRunner
                 };
             }
         }
+    }
+
+    private sealed class NkxToolSettings
+    {
+        public string? NkxToolPath { get; set; }
     }
 }
 
