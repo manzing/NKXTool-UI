@@ -1,10 +1,11 @@
-using Microsoft.Win32;
 using NkxToolUI.Services;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Text;
 using System.Windows;
 using Forms = System.Windows.Forms;
+using MessageBox = System.Windows.MessageBox;
+using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 
 namespace NkxToolUI.Views;
 
