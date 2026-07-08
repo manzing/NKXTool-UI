@@ -1,4 +1,4 @@
-name: Build NkxToolUI
+name: Build NkxToolGUI
 
 on:
   push:
@@ -25,7 +25,16 @@ jobs:
         run: dotnet --info
 
       - name: Restore
-        run: dotnet restore NkxToolUI.csproj
+        run: dotnet restore NkxToolGUI.csproj
 
       - name: Build
-        run: dotnet build NkxToolUI.csproj --configuration Release --no-restore
+        run: dotnet build NkxToolGUI.csproj --configuration Release --no-restore
+
+      - name: Publish
+        run: dotnet publish NkxToolGUI.csproj --configuration Release --no-build --output publish
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: NkxToolGUI-win-x64
+          path: publish/**
