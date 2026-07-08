@@ -227,7 +227,7 @@ public sealed class BrowseGridItem
     {
         Name = node.Name;
         ItemType = node.IsDirectory ? "Folder" : "File";
-        FullPath = string.IsNullOrWhiteSpace(node.FullPath) ? "\" : node.FullPath;
+        FullPath = string.IsNullOrWhiteSpace(node.FullPath) ? "\\" : node.FullPath;
         SizeText = node.Size.HasValue ? node.Size.Value.ToString("N0") : string.Empty;
     }
 
