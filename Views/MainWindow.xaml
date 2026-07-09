@@ -28,7 +28,6 @@
                     <TextBlock x:Name="HeaderTextBlock"
                             FontSize="30"
                             FontWeight="Bold"
-                            LetterSpacing="0.2"
                             Foreground="{DynamicResource HeaderTextBrush}"
                             Text="NKXTool" />
 
