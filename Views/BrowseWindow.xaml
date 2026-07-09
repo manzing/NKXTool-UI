@@ -7,6 +7,8 @@
         Width="1120"
         MinHeight="620"
         MinWidth="920"
+        Background="{DynamicResource WindowBrush}"
+        Foreground="{DynamicResource BodyTextBrush}"        
         WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <HierarchicalDataTemplate DataType="{x:Type local:ArchiveTreeNode}"
@@ -15,7 +17,8 @@
         </HierarchicalDataTemplate>
     </Window.Resources>
 
-    <Grid Margin="20">
+    <Grid Margin="20"
+          Background="{DynamicResource WindowBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />

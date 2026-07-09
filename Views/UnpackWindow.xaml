@@ -6,8 +6,11 @@
         Width="940"
         MinHeight="620"
         MinWidth="780"
+        Background="{DynamicResource WindowBrush}"
+        Foreground="{DynamicResource BodyTextBrush}"
         WindowStartupLocation="CenterScreen">
-    <Grid Margin="20">
+    <Grid Margin="20"
+          Background="{DynamicResource WindowBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
