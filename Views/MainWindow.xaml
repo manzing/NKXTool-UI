@@ -30,8 +30,7 @@
                            TextWrapping="Wrap" />
             </StackPanel>
 
-            <StackPanel Grid.Column="1"
-                        HorizontalAlignment="Right">
+            <StackPanel Grid.Column="1" HorizontalAlignment="Right">
                 <TextBlock Text="Theme"
                            Margin="0,0,0,6"
                            FontWeight="SemiBold"
@@ -60,20 +59,9 @@
                     <RowDefinition Height="86" />
                 </Grid.RowDefinitions>
 
-                <Button x:Name="PackButton"
-                        Grid.Row="0"
-                        Style="{StaticResource BigActionButtonStyle}"
-                        Click="PackButton_OnClick" />
-
-                <Button x:Name="UnpackButton"
-                        Grid.Row="2"
-                        Style="{StaticResource BigActionButtonStyle}"
-                        Click="UnpackButton_OnClick" />
-
-                <Button x:Name="BrowseButton"
-                        Grid.Row="4"
-                        Style="{StaticResource BigActionButtonStyle}"
-                        Click="BrowseButton_OnClick" />
+                <Button x:Name="PackButton" Grid.Row="0" Style="{StaticResource BigActionButtonStyle}" Click="PackButton_OnClick" />
+                <Button x:Name="UnpackButton" Grid.Row="2" Style="{StaticResource BigActionButtonStyle}" Click="UnpackButton_OnClick" />
+                <Button x:Name="BrowseButton" Grid.Row="4" Style="{StaticResource BigActionButtonStyle}" Click="BrowseButton_OnClick" />
             </Grid>
         </Border>
     </Grid>
