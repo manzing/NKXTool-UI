@@ -19,17 +19,21 @@
                 <Setter Property="Foreground" Value="{DynamicResource BodyTextBrush}" />
             </Style>
 
-            <Style TargetType="Label">
-                <Setter Property="Foreground" Value="{DynamicResource BodyTextBrush}" />
-            </Style>
-
             <Style TargetType="GroupBox">
                 <Setter Property="Foreground" Value="{DynamicResource HeaderTextBrush}" />
                 <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
                 <Setter Property="BorderThickness" Value="1" />
                 <Setter Property="Background" Value="{DynamicResource PanelBrush}" />
                 <Setter Property="Padding" Value="8" />
-                <Setter Property="Margin" Value="0" />
+            </Style>
+
+            <Style TargetType="ComboBox">
+                <Setter Property="MinHeight" Value="34" />
+                <Setter Property="Padding" Value="8,4" />
+                <Setter Property="Background" Value="{DynamicResource PanelElevatedBrush}" />
+                <Setter Property="Foreground" Value="{DynamicResource BodyTextBrush}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
+                <Setter Property="BorderThickness" Value="1" />
             </Style>
 
             <Style TargetType="TextBox">
@@ -43,60 +47,22 @@
                 <Setter Property="VerticalContentAlignment" Value="Center" />
             </Style>
 
-            <Style TargetType="ComboBox">
-                <Setter Property="MinHeight" Value="34" />
-                <Setter Property="Padding" Value="8,4" />
-                <Setter Property="Background" Value="{DynamicResource PanelElevatedBrush}" />
-                <Setter Property="Foreground" Value="{DynamicResource BodyTextBrush}" />
-                <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
-                <Setter Property="BorderThickness" Value="1" />
-            </Style>
-
             <Style TargetType="CheckBox">
                 <Setter Property="Foreground" Value="{DynamicResource BodyTextBrush}" />
             </Style>
 
-            <Style TargetType="ListBox">
-                <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
-                <Setter Property="BorderThickness" Value="1" />
-                <Setter Property="Background" Value="{DynamicResource PanelElevatedBrush}" />
-                <Setter Property="Foreground" Value="{DynamicResource BodyTextBrush}" />
-                <Setter Property="Padding" Value="4" />
-            </Style>
-
-            <Style TargetType="TreeView">
-                <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
-                <Setter Property="BorderThickness" Value="1" />
-                <Setter Property="Background" Value="{DynamicResource PanelElevatedBrush}" />
-                <Setter Property="Foreground" Value="{DynamicResource BodyTextBrush}" />
-                <Setter Property="Padding" Value="6" />
-            </Style>
-
-            <Style TargetType="DataGrid">
-                <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
-                <Setter Property="BorderThickness" Value="1" />
-                <Setter Property="Background" Value="{DynamicResource PanelElevatedBrush}" />
-                <Setter Property="Foreground" Value="{DynamicResource BodyTextBrush}" />
-                <Setter Property="RowHeaderWidth" Value="0" />
-                <Setter Property="GridLinesVisibility" Value="Horizontal" />
-                <Setter Property="HeadersVisibility" Value="Column" />
-                <Setter Property="CanUserAddRows" Value="False" />
-                <Setter Property="CanUserDeleteRows" Value="False" />
-                <Setter Property="CanUserResizeRows" Value="False" />
-                <Setter Property="IsReadOnly" Value="True" />
-                <Setter Property="AutoGenerateColumns" Value="False" />
-            </Style>
-
             <Style x:Key="PrimaryButtonStyle" TargetType="Button">
-                <Setter Property="Margin" Value="0,0,8,0" />
-                <Setter Property="Padding" Value="14,10" />
-                <Setter Property="MinHeight" Value="38" />
-                <Setter Property="Background" Value="{DynamicResource AccentBrush}" />
-                <Setter Property="Foreground" Value="{DynamicResource AccentForegroundBrush}" />
-                <Setter Property="BorderBrush" Value="{DynamicResource AccentBrush}" />
+                <Setter Property="Margin" Value="0" />
+                <Setter Property="Padding" Value="16,14" />
+                <Setter Property="MinHeight" Value="56" />
+                <Setter Property="Background" Value="{DynamicResource PanelElevatedBrush}" />
+                <Setter Property="Foreground" Value="{DynamicResource BodyTextBrush}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
                 <Setter Property="BorderThickness" Value="1" />
                 <Setter Property="Cursor" Value="Hand" />
                 <Setter Property="FontWeight" Value="SemiBold" />
+                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
                 <Setter Property="SnapsToDevicePixels" Value="True" />
                 <Setter Property="Template">
                     <Setter.Value>
@@ -104,51 +70,51 @@
                             <Border Background="{TemplateBinding Background}"
                                     BorderBrush="{TemplateBinding BorderBrush}"
                                     BorderThickness="{TemplateBinding BorderThickness}"
-                                    CornerRadius="10"
+                                    CornerRadius="14"
                                     SnapsToDevicePixels="True">
-                                <ContentPresenter HorizontalAlignment="Center"
-                                                  VerticalAlignment="Center"
-                                                  Margin="{TemplateBinding Padding}" />
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="12" />
+                                        <ColumnDefinition Width="4" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Border Grid.Column="0"
+                                            Background="{DynamicResource AccentBrush}"
+                                            CornerRadius="14,0,0,14" />
+                                    <ContentPresenter Grid.Column="2"
+                                                      HorizontalAlignment="Center"
+                                                      VerticalAlignment="Center"
+                                                      Margin="{TemplateBinding Padding}" />
+                                </Grid>
                             </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="{DynamicResource AccentSubtleBrush}" />
+                                    <Setter Property="BorderBrush" Value="{DynamicResource BorderStrongBrush}" />
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter Property="Background" Value="{DynamicResource AccentSubtleBrush}" />
+                                    <Setter Property="BorderBrush" Value="{DynamicResource AccentBrush}" />
+                                </Trigger>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter Property="Opacity" Value="0.55" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
-                <Style.Triggers>
-                    <Trigger Property="IsMouseOver" Value="True">
-                        <Setter Property="Background" Value="{DynamicResource AccentHoverBrush}" />
-                        <Setter Property="BorderBrush" Value="{DynamicResource AccentHoverBrush}" />
-                    </Trigger>
-                    <Trigger Property="IsEnabled" Value="False">
-                        <Setter Property="Opacity" Value="0.55" />
-                    </Trigger>
-                </Style.Triggers>
             </Style>
 
             <Style x:Key="SecondaryButtonStyle" TargetType="Button" BasedOn="{StaticResource PrimaryButtonStyle}">
-                <Setter Property="Background" Value="{DynamicResource PanelElevatedBrush}" />
+                <Setter Property="Background" Value="{DynamicResource PanelBrush}" />
                 <Setter Property="Foreground" Value="{DynamicResource HeaderTextBrush}" />
-                <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
-                <Style.Triggers>
-                    <Trigger Property="IsMouseOver" Value="True">
-                        <Setter Property="Background" Value="{DynamicResource AccentSubtleBrush}" />
-                        <Setter Property="BorderBrush" Value="{DynamicResource BorderStrongBrush}" />
-                    </Trigger>
-                    <Trigger Property="IsEnabled" Value="False">
-                        <Setter Property="Opacity" Value="0.55" />
-                    </Trigger>
-                </Style.Triggers>
             </Style>
 
             <Style x:Key="BigActionButtonStyle" TargetType="Button" BasedOn="{StaticResource SecondaryButtonStyle}">
                 <Setter Property="FontSize" Value="18" />
-                <Setter Property="FontWeight" Value="SemiBold" />
-                <Setter Property="MinHeight" Value="76" />
-                <Setter Property="Padding" Value="20,18" />
-                <Setter Property="Margin" Value="0" />
-                <Setter Property="BorderBrush" Value="{DynamicResource BorderStrongBrush}" />
+                <Setter Property="MinHeight" Value="86" />
+                <Setter Property="Padding" Value="18,18" />
                 <Setter Property="Background" Value="{DynamicResource PanelBrush}" />
-                <Setter Property="HorizontalContentAlignment" Value="Center" />
-                <Setter Property="VerticalContentAlignment" Value="Center" />
             </Style>
         </ResourceDictionary>
     </Application.Resources>
