@@ -19,32 +19,142 @@
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="150" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
             <StackPanel Grid.Column="0">
-                <TextBlock x:Name="HeaderTextBlock"
-                           FontSize="28"
-                           FontWeight="Bold"
-                           Foreground="{DynamicResource HeaderTextBrush}" />
+                <StackPanel Orientation="Horizontal"
+                            VerticalAlignment="Bottom">
+                    <TextBlock x:Name="HeaderTextBlock"
+                            FontSize="30"
+                            FontWeight="Bold"
+                            LetterSpacing="0.2"
+                            Foreground="{DynamicResource HeaderTextBrush}"
+                            Text="NKXTool" />
+
+                    <Border Margin="10,0,0,4"
+                            Padding="8,3"
+                            VerticalAlignment="Bottom"
+                            Background="{DynamicResource AccentSubtleBrush}"
+                            BorderBrush="{DynamicResource BorderBrush}"
+                            BorderThickness="1"
+                            CornerRadius="6">
+                        <TextBlock Text="GUI"
+                                FontSize="12"
+                                FontWeight="Bold"
+                                Foreground="{DynamicResource AccentBrush}" />
+                    </Border>
+                </StackPanel>
+
                 <TextBlock x:Name="DescriptionTextBlock"
-                           Margin="0,8,0,0"
-                           Foreground="{DynamicResource MutedTextBrush}"
-                           TextWrapping="Wrap" />
+                        Margin="0,8,0,0"
+                        Foreground="{DynamicResource MutedTextBrush}"
+                        TextWrapping="Wrap" />
             </StackPanel>
 
-            <StackPanel Grid.Column="1" HorizontalAlignment="Right">
-                <TextBlock Text="Theme"
-                           Margin="0,0,0,6"
-                           FontWeight="SemiBold"
-                           Foreground="{DynamicResource MutedTextBrush}" />
-                <ComboBox x:Name="ThemeComboBox"
-                          Width="140"
-                          SelectionChanged="ThemeComboBox_OnSelectionChanged">
-                    <ComboBoxItem Content="Light" />
-                    <ComboBoxItem Content="Dark" />
-                </ComboBox>
-            </StackPanel>
+            <ToggleButton x:Name="ThemeToggleButton"
+                        Grid.Column="1"
+                        Width="82"
+                        Height="38"
+                        Margin="16,6,0,0"
+                        VerticalAlignment="Top"
+                        Cursor="Hand"
+                        ToolTip="Switch light or dark theme"
+                        Checked="ThemeToggleButton_OnChecked"
+                        Unchecked="ThemeToggleButton_OnUnchecked">
+                <ToggleButton.Template>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Border x:Name="ToggleBorder"
+                                Background="{DynamicResource PanelElevatedBrush}"
+                                BorderBrush="{DynamicResource BorderBrush}"
+                                BorderThickness="1"
+                                CornerRadius="19"
+                                Padding="3">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <!-- Light icon -->
+                                <Viewbox Grid.Column="0"
+                                        Width="18"
+                                        Height="18"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center">
+                                    <Grid Width="24"
+                                        Height="24">
+                                        <Ellipse Width="9"
+                                                Height="9"
+                                                Fill="{DynamicResource MutedTextBrush}" />
+                                        <Path Stroke="{DynamicResource MutedTextBrush}"
+                                            StrokeThickness="2"
+                                            StrokeStartLineCap="Round"
+                                            StrokeEndLineCap="Round"
+                                            Data="M12,1 L12,4 M12,20 L12,23 M1,12 L4,12 M20,12 L23,12 M4.2,4.2 L6.3,6.3 M17.7,17.7 L19.8,19.8 M19.8,4.2 L17.7,6.3 M6.3,17.7 L4.2,19.8" />
+                                    </Grid>
+                                </Viewbox>
+
+                                <!-- Dark icon -->
+                                <Viewbox Grid.Column="1"
+                                        Width="18"
+                                        Height="18"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center">
+                                    <Path Width="20"
+                                        Height="20"
+                                        Fill="{DynamicResource BodyTextBrush}"
+                                        Data="M15.5,2.2 C10.1,3.1 6.2,7.8 6.2,13.3 C6.2,18.2 10.2,22.2 15.1,22.2 C17.4,22.2 19.5,21.3 21,19.8 C17.1,20.7 13.1,18.3 12.1,14.4 C11,10.2 13,5.6 16.8,3.9 C16.4,3.3 16,2.7 15.5,2.2 Z" />
+                                </Viewbox>
+
+                                <Border x:Name="Thumb"
+                                        Width="30"
+                                        Height="30"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        Background="{DynamicResource AccentBrush}"
+                                        CornerRadius="15"
+                                        RenderTransformOrigin="0.5,0.5">
+                                    <Border.RenderTransform>
+                                        <TranslateTransform x:Name="ThumbTransform"
+                                                            X="0" />
+                                    </Border.RenderTransform>
+                                </Border>
+                            </Grid>
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <!-- IsChecked = Dark -->
+                            <Trigger Property="IsChecked"
+                                    Value="True">
+                                <Setter TargetName="ThumbTransform"
+                                        Property="X"
+                                        Value="46" />
+                            </Trigger>
+
+                            <Trigger Property="IsMouseOver"
+                                    Value="True">
+                                <Setter TargetName="ToggleBorder"
+                                        Property="BorderBrush"
+                                        Value="{DynamicResource BorderStrongBrush}" />
+                            </Trigger>
+
+                            <Trigger Property="IsKeyboardFocused"
+                                    Value="True">
+                                <Setter TargetName="ToggleBorder"
+                                        Property="BorderBrush"
+                                        Value="{DynamicResource AccentBrush}" />
+                            </Trigger>
+
+                            <Trigger Property="IsEnabled"
+                                    Value="False">
+                                <Setter Property="Opacity"
+                                        Value="0.55" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </ToggleButton.Template>
+            </ToggleButton>
         </Grid>
 
         <Border Grid.Row="2"
