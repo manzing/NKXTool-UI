@@ -142,7 +142,7 @@
             <Style x:Key="BigActionButtonStyle" TargetType="Button" BasedOn="{StaticResource SecondaryButtonStyle}">
                 <Setter Property="FontSize" Value="18" />
                 <Setter Property="FontWeight" Value="SemiBold" />
-                <Setter Property="MinHeight" Value="86" />
+                <Setter Property="MinHeight" Value="76" />
                 <Setter Property="Padding" Value="20,18" />
                 <Setter Property="Margin" Value="0" />
                 <Setter Property="BorderBrush" Value="{DynamicResource BorderStrongBrush}" />
