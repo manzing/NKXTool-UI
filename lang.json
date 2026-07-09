@@ -4,8 +4,8 @@
     "en": {
       "app.title": "NkxToolUI",
       "main.title": "NkxToolUI",
-      "main.header": "NKX Utility",
-      "main.description": "Modern Windows interface for packing, unpacking and browsing NKX archives.",
+      "main.header": "NKXTool",
+      "main.description": "Utility for packing, unpacking and browsing NKX archives.",
       "action.pack": "Pack",
       "action.unpack": "Unpack",
       "action.browse": "Browse",

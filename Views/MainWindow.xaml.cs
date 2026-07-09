@@ -1,19 +1,19 @@
 using NkxToolUI.Services;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace NkxToolUI.Views;
 
 public partial class MainWindow : Window
 {
     private readonly LocalizationManager _localization = LocalizationManager.Current;
-    private bool _isUpdatingThemeSelector;
+    private bool _isUpdatingThemeToggle;
 
     public MainWindow()
     {
         InitializeComponent();
         ApplyTranslations();
-        InitializeThemeSelector();
+        InitializeThemeToggle();
+
         ThemeManager.Current.ThemeChanged += ThemeManager_OnThemeChanged;
         Closed += MainWindow_Closed;
     }
@@ -21,42 +21,79 @@ public partial class MainWindow : Window
     private void ApplyTranslations()
     {
         Title = _localization.Get("main.title");
-        HeaderTextBlock.Text = _localization.Get("main.header");
+
+        HeaderTextBlock.Text = "NKXTool";
         DescriptionTextBlock.Text = _localization.Get("main.description");
+
         PackButton.Content = _localization.Get("action.pack");
         UnpackButton.Content = _localization.Get("action.unpack");
         BrowseButton.Content = _localization.Get("action.browse");
     }
 
-    private void InitializeThemeSelector() => SetThemeComboSelection(ThemeManager.Current.CurrentTheme);
-
-    private void ThemeManager_OnThemeChanged(object? sender, EventArgs e) => SetThemeComboSelection(ThemeManager.Current.CurrentTheme);
-
-    private void SetThemeComboSelection(string themeName)
+    private void InitializeThemeToggle()
     {
-        _isUpdatingThemeSelector = true;
+        SetThemeToggleState(ThemeManager.Current.CurrentTheme);
+    }
+
+    private void ThemeManager_OnThemeChanged(object? sender, EventArgs e)
+    {
+        SetThemeToggleState(ThemeManager.Current.CurrentTheme);
+    }
+
+    private void SetThemeToggleState(string themeName)
+    {
+        _isUpdatingThemeToggle = true;
+
         try
         {
-            foreach (var item in ThemeComboBox.Items.OfType<ComboBoxItem>())
-                if (string.Equals(item.Content?.ToString(), themeName, StringComparison.OrdinalIgnoreCase))
-                {
-                    ThemeComboBox.SelectedItem = item;
-                    break;
-                }
+            ThemeToggleButton.IsChecked = string.Equals(
+                themeName,
+                "Dark",
+                StringComparison.OrdinalIgnoreCase);
         }
-        finally { _isUpdatingThemeSelector = false; }
+        finally
+        {
+            _isUpdatingThemeToggle = false;
+        }
     }
 
-    private void ThemeComboBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+    private void ThemeToggleButton_OnChecked(object sender, RoutedEventArgs e)
     {
-        if (_isUpdatingThemeSelector) return;
-        if (ThemeComboBox.SelectedItem is ComboBoxItem item && item.Content is string themeName)
-            ThemeManager.Current.ApplyTheme(themeName);
+        if (_isUpdatingThemeToggle)
+        {
+            return;
+        }
+
+        ThemeManager.Current.ApplyTheme("Dark");
     }
 
-    private void MainWindow_Closed(object? sender, EventArgs e) => ThemeManager.Current.ThemeChanged -= ThemeManager_OnThemeChanged;
+    private void ThemeToggleButton_OnUnchecked(object sender, RoutedEventArgs e)
+    {
+        if (_isUpdatingThemeToggle)
+        {
+            return;
+        }
 
-    private void PackButton_OnClick(object sender, RoutedEventArgs e) { new PackWindow { Owner = this }.ShowDialog(); }
-    private void UnpackButton_OnClick(object sender, RoutedEventArgs e) { new UnpackWindow { Owner = this }.ShowDialog(); }
-    private void BrowseButton_OnClick(object sender, RoutedEventArgs e) { new BrowseWindow { Owner = this }.ShowDialog(); }
+        ThemeManager.Current.ApplyTheme("Light");
+    }
+
+    private void MainWindow_Closed(object? sender, EventArgs e)
+    {
+        ThemeManager.Current.ThemeChanged -= ThemeManager_OnThemeChanged;
+    }
+
+    private void PackButton_OnClick(object sender, RoutedEventArgs e)
+    {
+        new PackWindow { Owner = this }.ShowDialog();
+    }
+
+    private void UnpackButton_OnClick(object sender, RoutedEventArgs e)
+    {
+        new UnpackWindow { Owner = this }.ShowDialog();
+    }
+
+    private void BrowseButton_OnClick(object sender, RoutedEventArgs e)
+    {
+        new BrowseWindow { Owner = this }.ShowDialog();
+    }
 }
