@@ -2,8 +2,8 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="NkxToolUI"
-        Height="360"
-        Width="520"
+        Height="390"
+        Width="560"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen">
     <Grid Margin="24">
@@ -13,16 +13,37 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0">
-            <TextBlock x:Name="HeaderTextBlock"
-                       FontSize="28"
-                       FontWeight="Bold"
-                       Foreground="{StaticResource HeaderTextBrush}" />
-            <TextBlock x:Name="DescriptionTextBlock"
-                       Margin="0,8,0,0"
-                       Foreground="{StaticResource MutedTextBrush}"
-                       TextWrapping="Wrap" />
-        </StackPanel>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="150" />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0">
+                <TextBlock x:Name="HeaderTextBlock"
+                           FontSize="28"
+                           FontWeight="Bold"
+                           Foreground="{DynamicResource HeaderTextBrush}" />
+                <TextBlock x:Name="DescriptionTextBlock"
+                           Margin="0,8,0,0"
+                           Foreground="{DynamicResource MutedTextBrush}"
+                           TextWrapping="Wrap" />
+            </StackPanel>
+
+            <StackPanel Grid.Column="1"
+                        HorizontalAlignment="Right">
+                <TextBlock Text="Theme"
+                           Margin="0,0,0,6"
+                           FontWeight="SemiBold"
+                           Foreground="{DynamicResource MutedTextBrush}" />
+                <ComboBox x:Name="ThemeComboBox"
+                          Width="140"
+                          SelectionChanged="ThemeComboBox_OnSelectionChanged">
+                    <ComboBoxItem Content="Light" />
+                    <ComboBoxItem Content="Dark" />
+                </ComboBox>
+            </StackPanel>
+        </Grid>
 
         <StackPanel Grid.Row="2" VerticalAlignment="Center">
             <Button x:Name="PackButton"
