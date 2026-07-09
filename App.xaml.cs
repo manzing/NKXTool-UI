@@ -6,7 +6,7 @@ using System.Windows;
 
 namespace NkxToolUI;
 
-public partial class App : System.Windows.Application
+public partial class App : Application
 {
     protected override void OnStartup(StartupEventArgs e)
     {
@@ -15,6 +15,8 @@ public partial class App : System.Windows.Application
         var localizationPath = Path.Combine(AppContext.BaseDirectory, "lang.json");
         var preferredLanguage = Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName;
         LocalizationManager.Current.Load(localizationPath, preferredLanguage);
+
+        ThemeManager.Current.Initialize();
 
         var startupWindow = CreateStartupWindow(e.Args);
         MainWindow = startupWindow;
