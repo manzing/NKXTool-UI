@@ -38,18 +38,17 @@ public sealed class ThemeManager
         }
 
         var mergedDictionaries = app.Resources.MergedDictionaries;
-        var themeDictionary = mergedDictionaries.FirstOrDefault(IsThemeDictionary);
-
         var themeUri = new Uri($"Themes/{normalizedTheme}.xaml", UriKind.Relative);
+        var existingThemeDictionaries = mergedDictionaries
+            .Where(IsThemeDictionary)
+            .ToList();
 
-        if (themeDictionary is null)
+        foreach (var dictionary in existingThemeDictionaries)
         {
-            mergedDictionaries.Insert(0, new ResourceDictionary { Source = themeUri });
+            mergedDictionaries.Remove(dictionary);
         }
-        else
-        {
-            themeDictionary.Source = themeUri;
-        }
+
+        mergedDictionaries.Add(new ResourceDictionary { Source = themeUri });
 
         CurrentTheme = normalizedTheme;
 
