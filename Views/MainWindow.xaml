@@ -126,9 +126,9 @@
                             <!-- IsChecked = Dark -->
                             <Trigger Property="IsChecked"
                                     Value="True">
-                                <Setter TargetName="ThumbTransform"
-                                        Property="X"
-                                        Value="46" />
+                                <Setter TargetName="Thumb"
+                                        Property="Margin"
+                                        Value="46,0,0,0" />
                             </Trigger>
 
                             <Trigger Property="IsMouseOver"
