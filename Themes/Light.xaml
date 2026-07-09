@@ -1,22 +1,23 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <SolidColorBrush x:Key="AccentBrush" Color="#FF5F7386" />
-    <SolidColorBrush x:Key="AccentHoverBrush" Color="#FF506476" />
+    <!-- Light warm stone -->
+    <SolidColorBrush x:Key="AccentBrush" Color="#FF667A6B" />
+    <SolidColorBrush x:Key="AccentHoverBrush" Color="#FF56685A" />
     <SolidColorBrush x:Key="AccentForegroundBrush" Color="#FFFFFFFF" />
-    <SolidColorBrush x:Key="AccentSubtleBrush" Color="#FFE4EAF0" />
+    <SolidColorBrush x:Key="AccentSubtleBrush" Color="#FFE6ECE6" />
 
-    <SolidColorBrush x:Key="WindowBrush" Color="#FFE9EDF2" />
-    <SolidColorBrush x:Key="PanelBrush" Color="#FFF3F5F7" />
-    <SolidColorBrush x:Key="PanelElevatedBrush" Color="#FFFBFCFD" />
+    <SolidColorBrush x:Key="WindowBrush" Color="#FFE9ECE8" />
+    <SolidColorBrush x:Key="PanelBrush" Color="#FFF6F6F3" />
+    <SolidColorBrush x:Key="PanelElevatedBrush" Color="#FFFCFCFA" />
 
-    <SolidColorBrush x:Key="BorderBrush" Color="#FFD4DCE4" />
-    <SolidColorBrush x:Key="BorderStrongBrush" Color="#FFBCC7D2" />
+    <SolidColorBrush x:Key="BorderBrush" Color="#FFD4D5CF" />
+    <SolidColorBrush x:Key="BorderStrongBrush" Color="#FFBABCB3" />
 
-    <SolidColorBrush x:Key="HeaderTextBrush" Color="#FF1F2730" />
-    <SolidColorBrush x:Key="BodyTextBrush" Color="#FF2F3944" />
-    <SolidColorBrush x:Key="MutedTextBrush" Color="#FF6A7785" />
+    <SolidColorBrush x:Key="HeaderTextBrush" Color="#FF20231F" />
+    <SolidColorBrush x:Key="BodyTextBrush" Color="#FF2D312C" />
+    <SolidColorBrush x:Key="MutedTextBrush" Color="#FF6A7067" />
 
-    <SolidColorBrush x:Key="DangerBrush" Color="#FFC45C5C" />
-    <SolidColorBrush x:Key="SuccessBrush" Color="#FF5A8366" />
+    <SolidColorBrush x:Key="DangerBrush" Color="#FFC46B6B" />
+    <SolidColorBrush x:Key="SuccessBrush" Color="#FF6D8B72" />
 </ResourceDictionary>
