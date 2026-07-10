@@ -412,7 +412,17 @@ public partial class PackWindow : Window
             SetBusy(false, StatusTextBlock.Text);
         }
     }
+    private bool ConfirmOverwrite(string outputArchive)
+    {
+        var result = MessageBox.Show(
+            this,
+            $"The archive already exists:{Environment.NewLine}{outputArchive}{Environment.NewLine}{Environment.NewLine}Do you want to replace it?",
+            _localization.Get("app.title"),
+            MessageBoxButton.YesNo,
+            MessageBoxImage.Warning);
 
+        return result == MessageBoxResult.Yes;
+    }
     private static string BuildArchivePath(string outputFolder, string sourceFolder)
     {
         var folderName = Path.GetFileName(sourceFolder.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
