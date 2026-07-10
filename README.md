@@ -4,6 +4,12 @@ A lightweight desktop interface for `NkxTool.exe` to browse, create, and extract
 
 The application focuses on a clean native workflow: pack a folder, pack from a `@filelist.txt`, unpack one or more archives, browse archive contents, switch light/dark theme, and run batch multi-pack operations from a single window.
 
+### Light Theme
+![Main window](./Assets/NkxToolUI-Light.jpg)
+
+### Dark Theme
+![Main window](./Assets/NkxToolUI-Dark.jpg)
+
 ## Features
 
 - Pack a whole folder into an `.nkx` archive.
