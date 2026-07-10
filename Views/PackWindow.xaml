@@ -39,7 +39,7 @@
                   Padding="14">
             <StackPanel>
                 <RadioButton x:Name="FolderModeRadioButton"
-                             Margin="0,0,0,8"
+                             Margin="0,8,0,8"
                              Checked="PackModeRadioButton_OnChecked" />
                 <RadioButton x:Name="FileListModeRadioButton"
                              Checked="PackModeRadioButton_OnChecked" />
