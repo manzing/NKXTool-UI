@@ -188,6 +188,58 @@
                 </Setter>
             </Style>
 
+            <Style TargetType="ListBox">
+                <Setter Property="Margin" Value="0,6,0,0" />
+                <Setter Property="Padding" Value="4" />
+                <Setter Property="Background" Value="{DynamicResource PanelElevatedBrush}" />
+                <Setter Property="Foreground" Value="{DynamicResource BodyTextBrush}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
+                <Setter Property="BorderThickness" Value="1" />
+            </Style>
+
+            <Style TargetType="ListBoxItem">
+                <Setter Property="Padding" Value="10,8" />
+                <Setter Property="Foreground" Value="{DynamicResource BodyTextBrush}" />
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ListBoxItem">
+                            <Border x:Name="ItemBorder"
+                                    Margin="0,2,0,2"
+                                    Padding="{TemplateBinding Padding}"
+                                    Background="{TemplateBinding Background}"
+                                    CornerRadius="6"
+                                    SnapsToDevicePixels="True">
+                                <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                VerticalAlignment="Center" />
+                            </Border>
+
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="ItemBorder"
+                                            Property="Background"
+                                            Value="{DynamicResource AccentSubtleBrush}" />
+                                </Trigger>
+
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter TargetName="ItemBorder"
+                                            Property="Background"
+                                            Value="{DynamicResource AccentBrush}" />
+                                    <Setter Property="Foreground"
+                                            Value="{DynamicResource AccentForegroundBrush}" />
+                                </Trigger>
+
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter Property="Foreground"
+                                            Value="{DynamicResource MutedTextBrush}" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            
             <Style TargetType="CheckBox">
                 <Setter Property="Foreground" Value="{DynamicResource BodyTextBrush}" />
                 <Setter Property="Cursor" Value="Hand" />
