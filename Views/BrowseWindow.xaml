@@ -90,8 +90,37 @@
                       Grid.Column="2"
                       Padding="8">
                 <DataGrid x:Name="EntriesDataGrid"
-                          Margin="0,10,0,0"
-                          SelectionMode="Single">
+                        Margin="0,10,0,0"
+                        SelectionMode="Single"
+                        Background="{DynamicResource WindowBrush}"
+                        Foreground="{DynamicResource BodyTextBrush}"
+                        BorderBrush="{DynamicResource BorderBrush}"
+                        RowBackground="{DynamicResource WindowBrush}"
+                        AlternatingRowBackground="{DynamicResource WindowBrush}">
+                    <DataGrid.ColumnHeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="Background" Value="{DynamicResource WindowBrush}" />
+                            <Setter Property="Foreground" Value="{DynamicResource BodyTextBrush}" />
+                            <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
+                            <Setter Property="FontWeight" Value="SemiBold" />
+                        </Style>
+                    </DataGrid.ColumnHeaderStyle>
+
+                    <DataGrid.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="Background" Value="{DynamicResource WindowBrush}" />
+                            <Setter Property="Foreground" Value="{DynamicResource BodyTextBrush}" />
+                            <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
+                        </Style>
+                    </DataGrid.CellStyle>
+
+                    <DataGrid.RowStyle>
+                        <Style TargetType="DataGridRow">
+                            <Setter Property="Background" Value="{DynamicResource WindowBrush}" />
+                            <Setter Property="Foreground" Value="{DynamicResource BodyTextBrush}" />
+                        </Style>
+                    </DataGrid.RowStyle>
+
                     <DataGrid.Columns>
                         <DataGridTextColumn x:Name="NameColumn"
                                             Binding="{Binding Name}"
