@@ -77,17 +77,17 @@
 
             <GroupBox x:Name="TreeGroupBox"
                       Grid.Column="0"
-                      Padding="8"
-                      Margin="0,10,0,0">
+                      Padding="8">
                 <TreeView x:Name="EntriesTreeView"
+                          Margin="0,10,0,0"
                           SelectedItemChanged="EntriesTreeView_OnSelectedItemChanged" />
             </GroupBox>
 
             <GroupBox x:Name="DetailsGroupBox"
                       Grid.Column="2"
-                      Padding="8"
-                      Margin="0,10,0,0">
+                      Padding="8">
                 <DataGrid x:Name="EntriesDataGrid"
+                          Margin="0,10,0,0"
                           SelectionMode="Single">
                     <DataGrid.Columns>
                         <DataGridTextColumn x:Name="NameColumn"
