@@ -79,8 +79,11 @@
                       Grid.Column="0"
                       Padding="8">
                 <TreeView x:Name="EntriesTreeView"
-                          Margin="0,10,0,0"
-                          SelectedItemChanged="EntriesTreeView_OnSelectedItemChanged" />
+                        Margin="0,10,0,0"
+                        Background="{DynamicResource SurfaceBrush}"
+                        Foreground="{DynamicResource BodyTextBrush}"
+                        BorderBrush="{DynamicResource BorderBrush}"
+                        SelectedItemChanged="EntriesTreeView_OnSelectedItemChanged" />
             </GroupBox>
 
             <GroupBox x:Name="DetailsGroupBox"
