@@ -20,14 +20,16 @@ public sealed class NkxToolRunner
         string? rootPath = null,
         CancellationToken cancellationToken = default)
     {
-        return RunAsync(BuildPackArguments(destinationArchive, sourceFolderOrFileList, rootPath), cancellationToken);
+        return RunAsync(
+            BuildPackArguments(destinationArchive, sourceFolderOrFileList, rootPath),
+            cancellationToken: cancellationToken);
     }
 
     public async Task<NkxBrowseResult> BrowseAsync(
         string archiveFile,
         CancellationToken cancellationToken = default)
     {
-        var execution = await RunAsync(BuildBrowseArguments(archiveFile), cancellationToken);
+        var execution = await RunAsync(BuildBrowseArguments(archiveFile), cancellationToken: cancellationToken);
         var parsedEntries = ParseBrowseOutput(execution.StandardOutput);
 
         var usedMockData = parsedEntries.Count == 0;
@@ -53,9 +55,7 @@ public sealed class NkxToolRunner
     {
         return RunAsync(
             BuildUnpackArguments(archiveFile, outputDirectory),
-            onOutput,
-            onError,
-            cancellationToken);
+            cancellationToken: cancellationToken);
     }
 
     public async Task<ProcessExecutionResult> RunAsync(
