@@ -355,6 +355,13 @@ public partial class PackWindow : Window
                 AppendLog($"[{DateTime.Now:HH:mm:ss}] Packing folder: {sourceFolder}");
                 AppendLog($"Output archive: {outputArchive}");
 
+                if (File.Exists(outputArchive) && !ConfirmOverwrite(outputArchive))
+                {
+                    AppendLog($"Skipped existing archive: {outputArchive}");
+                    failureCount++;
+                    continue;
+                }
+
                 ProcessExecutionResult result;
                 string? tempFileList = null;
 
