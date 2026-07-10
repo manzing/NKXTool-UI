@@ -23,14 +23,6 @@ public sealed class NkxToolRunner
         return RunAsync(BuildPackArguments(destinationArchive, sourceFolderOrFileList, rootPath), cancellationToken);
     }
 
-    public Task<ProcessExecutionResult> UnpackAsync(
-        string archiveFile,
-        string outputDirectory,
-        CancellationToken cancellationToken = default)
-    {
-        return RunAsync(BuildUnpackArguments(archiveFile, outputDirectory), cancellationToken);
-    }
-
     public async Task<NkxBrowseResult> BrowseAsync(
         string archiveFile,
         CancellationToken cancellationToken = default)
@@ -52,8 +44,24 @@ public sealed class NkxToolRunner
         };
     }
 
+    public Task<ProcessExecutionResult> UnpackAsync(
+        string archiveFile,
+        string outputDirectory,
+        Action<string>? onOutput = null,
+        Action<string>? onError = null,
+        CancellationToken cancellationToken = default)
+    {
+        return RunAsync(
+            BuildUnpackArguments(archiveFile, outputDirectory),
+            onOutput,
+            onError,
+            cancellationToken);
+    }
+
     public async Task<ProcessExecutionResult> RunAsync(
         IReadOnlyList<string> arguments,
+        Action<string>? onOutput = null,
+        Action<string>? onError = null,
         CancellationToken cancellationToken = default)
     {
         var executablePath = ResolveExecutablePath();
@@ -103,6 +111,8 @@ public sealed class NkxToolRunner
                     {
                         standardOutput.AppendLine(e.Data);
                     }
+
+                    onOutput?.Invoke(e.Data);
                 }
             };
 
@@ -114,6 +124,8 @@ public sealed class NkxToolRunner
                     {
                         standardError.AppendLine(e.Data);
                     }
+
+                    onError?.Invoke(e.Data);
                 }
             };
 

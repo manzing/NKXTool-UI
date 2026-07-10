@@ -147,7 +147,11 @@ public partial class UnpackWindow : Window
                 AppendLog($"[{DateTime.Now:HH:mm:ss}] Extracting: {archiveFile}");
                 AppendLog($"Destination: {destination}");
 
-                var result = await _runner.UnpackAsync(archiveFile, destination);
+                var result = await _runner.UnpackAsync(
+                    archiveFile,
+                    destination,
+                    onOutput: line => Dispatcher.BeginInvoke(() => AppendLiveLogLine(line)),
+                    onError: line => Dispatcher.BeginInvoke(() => AppendLiveLogLine("[stderr] " + line)));
                 AppendResult(result);
 
                 if (result.Success)
@@ -168,6 +172,22 @@ public partial class UnpackWindow : Window
         {
             SetBusy(false, StatusTextBlock.Text);
         }
+    }
+
+    private void AppendLiveLogLine(string line)
+    {
+        if (string.IsNullOrWhiteSpace(line))
+        {
+            return;
+        }
+
+        if (!string.IsNullOrWhiteSpace(LogTextBox.Text))
+        {
+            LogTextBox.AppendText(Environment.NewLine);
+        }
+
+        LogTextBox.AppendText(line);
+        LogTextBox.ScrollToEnd();
     }
 
     private void CloseWindowButton_OnClick(object sender, RoutedEventArgs e)
