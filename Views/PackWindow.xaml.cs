@@ -143,7 +143,8 @@ public partial class PackWindow : Window
 
         var dialog = new SaveFileDialog
         {
-            Filter = "NKX archive (*.nkx)|*.nkx|All files (*.*)|*.*",
+            Filter = "Kontakt container (*.nkx)|*.nkx|Kontakt resource (*.nkr)|*.nkr|Kontakt sample (*.nks)|*.nks|Kontakt library (*.nicnt)|*.nicnt|All files (*.*)|*.*",
+            FilterIndex = 1,
             DefaultExt = ".nkx",
             AddExtension = true,
             InitialDirectory = initialDirectory,

@@ -44,7 +44,7 @@ public partial class UnpackWindow : Window
     {
         var dialog = new OpenFileDialog
         {
-            Filter = "NKX archive (*.nkx)|*.nkx|All files (*.*)|*.*",
+            Filter = "Supported Kontakt files (*.nkx;*.nkr;*.nks;*.nicnt)|*.nkx;*.nkr;*.nks;*.nicnt|Kontakt container (*.nkx)|*.nkx|Kontakt resource (*.nkr)|*.nkr|Kontakt sample (*.nks)|*.nks|Kontakt library (*.nicnt)|*.nicnt|All files (*.*)|*.*",
             Multiselect = true,
             CheckFileExists = true
         };
