@@ -92,19 +92,15 @@
                           SelectionMode="Single">
                     <DataGrid.Columns>
                         <DataGridTextColumn x:Name="NameColumn"
-                                            Style="{StaticResource AccentForegroundBrush}"
                                             Binding="{Binding Name}"
                                             Width="2*" />
                         <DataGridTextColumn x:Name="TypeColumn"
-                                            Style="{StaticResource AccentForegroundBrush}"
                                             Binding="{Binding ItemType}"
                                             Width="*" />
                         <DataGridTextColumn x:Name="PathColumn"
-                                            Style="{StaticResource AccentForegroundBrush}"
                                             Binding="{Binding FullPath}"
                                             Width="3*" />
                         <DataGridTextColumn x:Name="SizeColumn"
-                                            Style="{StaticResource AccentForegroundBrush}"
                                             Binding="{Binding SizeText}"
                                             Width="*" />
                     </DataGrid.Columns>
