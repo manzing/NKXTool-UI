@@ -11,6 +11,7 @@
     <RootNamespace>NkxToolUI</RootNamespace>
     <AssemblyName>NkxToolUI</AssemblyName>
     <Platforms>AnyCPU</Platforms>
+    <ApplicationIcon>Assets\app_icon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
