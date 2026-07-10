@@ -79,13 +79,12 @@
                       Grid.Column="0"
                       Padding="8">
                 <TreeView x:Name="EntriesTreeView"
-                          Style="{StaticResource AccentForegroundBrush}"
                           Margin="0,10,0,0"
                           SelectedItemChanged="EntriesTreeView_OnSelectedItemChanged" />
             </GroupBox>
 
             <GroupBox x:Name="DetailsGroupBox"
-                      Grid.Column="1"
+                      Grid.Column="2"
                       Padding="8">
                 <DataGrid x:Name="EntriesDataGrid"
                           Margin="0,10,0,0"
