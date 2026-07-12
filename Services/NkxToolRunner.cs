@@ -170,7 +170,11 @@ public sealed class NkxToolRunner
             };
         }
     }
-
+    public Task<ProcessExecutionResult> UpdateDatabaseAsync(CancellationToken cancellationToken = default)
+    {
+        // Appelle simplement "nkxtool update"
+        return RunAsync(new[] { "update" }, cancellationToken: cancellationToken);
+    }
     private IReadOnlyList<string> BuildPackArguments(
         string destinationArchive,
         string sourceFolderOrFileList,

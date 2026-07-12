@@ -5,7 +5,7 @@
       "app.title": "NkxToolUI",
       "main.title": "NkxToolUI",
       "main.header": "NKXTool",
-      "main.description": "Utility for packing, unpacking, browsing NKX archives and more.",
+      "main.description": "Utility for packing, unpacking, browsing NI archives.",
       "action.pack": "Pack",
       "action.unpack": "Unpack",
       "action.browse": "Browse",
