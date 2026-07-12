@@ -190,3 +190,5 @@
                         Click="UpdateDatabaseButton_Click" />
             </Grid>
         </Border>
+    </Grid>
+</Window>
