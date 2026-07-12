@@ -169,20 +169,24 @@
                     <RowDefinition Height="86" />
                     <RowDefinition Height="14" />
                     <RowDefinition Height="86" />
+                    <!-- 1. AJOUTE DEUX LIGNES ICI (une pour l'espace, une auto pour le bouton) -->
+                    <RowDefinition Height="14" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
                 <Button x:Name="PackButton" Grid.Row="0" Style="{StaticResource BigActionButtonStyle}" Click="PackButton_OnClick" />
                 <Button x:Name="UnpackButton" Grid.Row="2" Style="{StaticResource BigActionButtonStyle}" Click="UnpackButton_OnClick" />
                 <Button x:Name="BrowseButton" Grid.Row="4" Style="{StaticResource BigActionButtonStyle}" Click="BrowseButton_OnClick" />
+                
+                <!-- 2. ASSIGNE LA LIGNE 6 AU BOUTON -->
                 <Button x:Name="UpdateDatabaseButton"
+                        Grid.Row="6"
                         Content="Update NKX Database"
                         HorizontalAlignment="Center"
-                        Margin="0,40,0,0"
+                        Margin="0,10,0,0"
                         Padding="20,8"
                         FontSize="14"
                         Style="{StaticResource SecondaryButtonStyle}"
                         Click="UpdateDatabaseButton_Click" />
             </Grid>
         </Border>
-    </Grid>
-</Window>
