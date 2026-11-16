@@ -35,6 +35,11 @@ public partial class UnpackWindow : Window
         OutputFolderLabel.Text = _localization.Get("unpack.outputFolder");
         BrowseOutputFolderButton.Content = _localization.Get("unpack.selectOutputFolder");
         CreateSubfoldersCheckBox.Content = _localization.Get("unpack.createSubfolders");
+        ConvertToAbletonCheckBox.Content = _localization.Get("unpack.convertToAbleton");
+        LiveVersionLabel.Text = _localization.Get("convert.liveVersion");
+        Live12RadioButton.Content = _localization.Get("convert.live12");
+        Live11RadioButton.Content = _localization.Get("convert.live11");
+        ConvertHintTextBlock.Text = _localization.Get("unpack.convertHint");
         RunUnpackButton.Content = _localization.Get("unpack.run");
         CloseWindowButton.Content = _localization.Get("action.close");
         LogLabel.Text = _localization.Get("unpack.log");
@@ -126,6 +131,9 @@ public partial class UnpackWindow : Window
         Directory.CreateDirectory(outputRoot);
 
         var createSubfolders = CreateSubfoldersCheckBox.IsChecked == true;
+        var convertToAbleton = ConvertToAbletonCheckBox.IsChecked == true;
+        var abletonVersion = Live11RadioButton.IsChecked == true ? 11 : 12;
+        var extractedFolders = new List<string>();
         var successCount = 0;
         var failureCount = 0;
 
@@ -157,11 +165,21 @@ public partial class UnpackWindow : Window
                 if (result.Success)
                 {
                     successCount++;
+                    if (!extractedFolders.Contains(destination, StringComparer.OrdinalIgnoreCase))
+                    {
+                        extractedFolders.Add(destination);
+                    }
                 }
                 else
                 {
                     failureCount++;
                 }
+            }
+
+            // Convert after all archives are extracted: samples of an instrument are often in another archive
+            if (convertToAbleton && extractedFolders.Count > 0)
+            {
+                await ConvertExtractedInstrumentsAsync(outputRoot, extractedFolders, abletonVersion);
             }
 
             StatusTextBlock.Text = failureCount == 0
@@ -172,6 +190,45 @@ public partial class UnpackWindow : Window
         {
             SetBusy(false, StatusTextBlock.Text);
         }
+    }
+
+    private async Task ConvertExtractedInstrumentsAsync(string outputRoot, IReadOnlyList<string> extractedFolders, int abletonVersion)
+    {
+        var abletonFolder = Path.Combine(outputRoot, AbletonExportService.DefaultOutputFolderName);
+        var nkiFiles = extractedFolders
+            .SelectMany(folder => NkiConverter.Conversion.AbletonConverter.FindNkiFiles(folder))
+            .Where(file => !file.StartsWith(abletonFolder + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase))
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .ToList();
+
+        AppendLog($"[{DateTime.Now:HH:mm:ss}] Ableton Sampler conversion");
+        if (nkiFiles.Count == 0)
+        {
+            AppendLog(_localization.Get("unpack.noInstruments"));
+            return;
+        }
+
+        StatusTextBlock.Text = _localization.Get("convert.status.running");
+        try
+        {
+            var summary = await AbletonExportService.ConvertAsync(
+                nkiFiles,
+                abletonFolder,
+                abletonVersion,
+                [outputRoot],
+                line => Dispatcher.Invoke(() => AppendLiveLogLine(line)));
+
+            AppendLog($"Ableton presets: {summary.Presets}, failed instruments: {summary.Failed}");
+        }
+        catch (Exception ex)
+        {
+            AppendLog($"Ableton conversion failed: {ex.Message}");
+        }
+    }
+
+    private void ConvertToAbletonCheckBox_OnChanged(object sender, RoutedEventArgs e)
+    {
+        AbletonOptionsPanel.IsEnabled = ConvertToAbletonCheckBox.IsChecked == true;
     }
 
     private void AppendLiveLogLine(string line)
@@ -205,6 +262,8 @@ public partial class UnpackWindow : Window
         CloseWindowButton.IsEnabled = !isBusy;
         OutputFolderTextBox.IsEnabled = !isBusy;
         CreateSubfoldersCheckBox.IsEnabled = !isBusy;
+        ConvertToAbletonCheckBox.IsEnabled = !isBusy;
+        AbletonOptionsPanel.IsEnabled = !isBusy && ConvertToAbletonCheckBox.IsChecked == true;
         ArchivesListBox.IsEnabled = !isBusy;
         StatusTextBlock.Text = status;
     }

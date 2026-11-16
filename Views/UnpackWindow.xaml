@@ -2,9 +2,9 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Unpack NKX Archive"
-        Height="700"
+        Height="800"
         Width="940"
-        MinHeight="620"
+        MinHeight="720"
         MinWidth="780"
         Background="{DynamicResource WindowBrush}"
         Foreground="{DynamicResource BodyTextBrush}"
@@ -89,7 +89,36 @@
                 BorderBrush="{StaticResource BorderBrush}"
                 BorderThickness="1"
                 CornerRadius="8">
-            <CheckBox x:Name="CreateSubfoldersCheckBox" />
+            <StackPanel>
+                <CheckBox x:Name="CreateSubfoldersCheckBox" />
+
+                <CheckBox x:Name="ConvertToAbletonCheckBox"
+                          Margin="0,12,0,0"
+                          Checked="ConvertToAbletonCheckBox_OnChanged"
+                          Unchecked="ConvertToAbletonCheckBox_OnChanged" />
+
+                <StackPanel x:Name="AbletonOptionsPanel"
+                            Margin="24,8,0,0"
+                            IsEnabled="False">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock x:Name="LiveVersionLabel"
+                                   VerticalAlignment="Center"
+                                   Margin="0,0,12,0" />
+                        <RadioButton x:Name="Live12RadioButton"
+                                     GroupName="UnpackLiveVersion"
+                                     IsChecked="True"
+                                     VerticalAlignment="Center"
+                                     Margin="0,0,16,0" />
+                        <RadioButton x:Name="Live11RadioButton"
+                                     GroupName="UnpackLiveVersion"
+                                     VerticalAlignment="Center" />
+                    </StackPanel>
+                    <TextBlock x:Name="ConvertHintTextBlock"
+                               Margin="0,6,0,0"
+                               Foreground="{StaticResource MutedTextBrush}"
+                               TextWrapping="Wrap" />
+                </StackPanel>
+            </StackPanel>
         </Border>
 
         <TextBlock x:Name="LogLabel"

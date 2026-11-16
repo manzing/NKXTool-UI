@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    NKI -> Ableton Sampler conversion library.
+
+    The Kontakt file-format knowledge and the Ableton device templates in this
+    library are derived from ConvertWithMoss by Jürgen Moßgraber
+    (https://github.com/git-moss/ConvertWithMoss), licensed under LGPL-3.0.
+    This library is therefore distributed under the LGPL-3.0 as a separate
+    assembly (NkiConverter.dll). See LICENSE and NOTICE.md in this folder.
+  -->
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+    <RootNamespace>NkiConverter</RootNamespace>
+    <AssemblyName>NkiConverter</AssemblyName>
+    <PackageLicenseExpression>LGPL-3.0-or-later</PackageLicenseExpression>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Ableton\Templates\*.xml" LogicalName="NkiConverter.Templates.%(Filename)%(Extension)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="NkiConverter.Tests" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="LICENSE" Link="NkiConverter-LICENSE.txt" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="NOTICE.md" Link="NkiConverter-NOTICE.md" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+</Project>

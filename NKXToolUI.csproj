@@ -12,7 +12,14 @@
     <AssemblyName>NkxToolUI</AssemblyName>
     <Platforms>AnyCPU</Platforms>
     <ApplicationIcon>Assets\app_icon.ico</ApplicationIcon>
+    <!-- The converter library and its tests are separate projects in sub-folders -->
+    <DefaultItemExcludes>$(DefaultItemExcludes);NkiConverter\**;NkiConverter.Tests\**</DefaultItemExcludes>
   </PropertyGroup>
+
+  <ItemGroup>
+    <!-- NKI -> Ableton Sampler conversion (LGPL-3.0, separate assembly - see NkiConverter/NOTICE.md) -->
+    <ProjectReference Include="NkiConverter\NkiConverter.csproj" />
+  </ItemGroup>
 
   <ItemGroup>
     <Content Include="lang.json">

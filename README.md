@@ -21,6 +21,7 @@ The application focuses on a clean native workflow: pack a folder, pack from a `
 - Live console/log output in the UI.
 - Light and dark theme support.
 - Configurable path to `NkxTool.exe` through `nkxtoolsettings.json`.
+- **Convert Kontakt instruments (`.nki`) to Ableton Live Sampler presets (`.adv`)** – either automatically after unpacking, or from the dedicated *Convert NKI to Ableton* window.
 
 ## Requirements
 
@@ -106,6 +107,75 @@ The browse window displays the archive contents returned by `NkxTool.exe` so the
 
 Partial extraction from the browse view is not fully implemented yet.
 
+## Convert to Ableton Sampler
+
+Every `.nki` instrument extracted from an NKX archive (or any other `.nki` on disk) can be turned
+into an Ableton Live **Sampler** preset.
+
+Two ways to use it:
+
+- **While unpacking:** tick *Convert extracted NKI instruments to Ableton Sampler presets* in the
+  Unpack window. After all archives are extracted, every `.nki` found in the extracted files is
+  converted. The conversion runs after the whole batch, so instruments whose samples live in a
+  different archive of the same batch are still resolved.
+- **Standalone:** *Convert NKI to Ableton* on the main window. Add `.nki` files or whole folders
+  (drag & drop works too), pick an output folder, and optionally a sample folder to search.
+
+### What is converted
+
+| Kontakt | Ableton Sampler |
+|---|---|
+| Zones: key range, velocity range, root key | Multi-sample zones (`KeyRange`, `VelocityRange`, `RootKey`) |
+| Key / velocity crossfades | Zone crossfades (Kontakt fades are measured inward from the zone border) |
+| Sample start / end | `SampleStart` / `SampleEnd` |
+| Loops (until end / until release, alternating, crossfade, loop tuning) | Sustain loop (+ release loop mode) |
+| Instrument × group × zone volume, pan and tuning | Zone volume, pan, root key + detune |
+| Group key tracking | Zone tune scale (0 % or 100 %) |
+| Group volume envelope (AHDSR / AHD / DBD) | Sampler amp envelope |
+| Velocity → volume, pitch-bend range | *Vol < Vel*, pitch bend range |
+| Round-robin / random groups | Live 12: native round robin · Live 11: Selector ranges |
+| Muted / soloed groups | Respected (muted groups are left out) |
+| Name, author, vendor, library, tags, credits, URL | Preset name + device *Info* text (annotation) |
+| NCW compressed samples | Decoded to WAV (WAV / AIFF / FLAC are copied) |
+
+Supported NKI flavours: Kontakt 5 / 6 / 7 / 8 (NI container format), Kontakt 4.2 and Kontakt 2 – 4.1 (XML).
+
+### Limitations
+
+- **Encrypted instruments** (licensed *Kontakt Player* libraries) cannot be read. They are reported in the log and skipped.
+- **Monolith** instruments (samples embedded in the `.nki`) and Kontakt 1 instruments are not supported.
+- Release-trigger groups are left out – Sampler cannot trigger samples on note-off.
+- Scripts (KSP), effects, filters, LFOs and per-group reverse are not converted; Ableton Sampler has one global amp envelope, taken from the first regular group.
+- Instruments built on synthesis or scripts rather than sample zones have nothing to convert.
+
+### Output layout
+
+The output folder uses the Ableton **User Library** layout:
+
+```text
+<output>/
+├─ Presets/Instruments/Sampler/<Instrument>.adv
+└─ Samples/Imported/<Instrument>/<sample>.wav
+```
+
+Copy both folders into your User Library (they merge with the existing `Presets` / `Samples`
+folders), or drag an `.adv` file directly onto a MIDI track in Live. Samples shared by several
+instruments in one conversion are written only once.
+
+### Credits and licence of the converter
+
+The conversion is implemented in the separate `NkiConverter` library. Its knowledge of the Kontakt
+file formats and the Ableton Sampler templates are derived from
+[ConvertWithMoss](https://github.com/git-moss/ConvertWithMoss) by Jürgen Moßgraber, so the
+library is licensed under the **LGPL-3.0** and ships as its own assembly (`NkiConverter.dll`). See
+[`NkiConverter/NOTICE.md`](NkiConverter/NOTICE.md).
+
+Run the converter's tests with:
+
+```bash
+dotnet run --project NkiConverter.Tests/NkiConverter.Tests.csproj -c Release
+```
+
 ## Project structure
 
 ```text
@@ -114,6 +184,8 @@ NKXTool-UI/
 ├─ Services/
 ├─ Themes/
 ├─ Views/
+├─ NkiConverter/          # NKI -> Ableton Sampler conversion library (LGPL-3.0)
+├─ NkiConverter.Tests/    # converter tests (dotnet run)
 ├─ App.xaml
 ├─ App.xaml.cs
 ├─ NKXToolUI.csproj

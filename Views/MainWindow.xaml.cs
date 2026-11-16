@@ -28,6 +28,7 @@ public partial class MainWindow : Window
         PackButton.Content = _localization.Get("action.pack");
         UnpackButton.Content = _localization.Get("action.unpack");
         BrowseButton.Content = _localization.Get("action.browse");
+        ConvertButton.Content = _localization.Get("action.convert");
     }
 
     private void InitializeThemeToggle()
@@ -139,5 +140,10 @@ public partial class MainWindow : Window
     private void BrowseButton_OnClick(object sender, RoutedEventArgs e)
     {
         new BrowseWindow { Owner = this }.ShowDialog();
+    }
+
+    private void ConvertButton_OnClick(object sender, RoutedEventArgs e)
+    {
+        new ConvertWindow { Owner = this }.ShowDialog();
     }
 }

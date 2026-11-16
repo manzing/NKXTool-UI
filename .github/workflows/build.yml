@@ -30,6 +30,9 @@ jobs:
       - name: Build
         run: dotnet build NkxToolUI.csproj --configuration Release --no-restore
 
+      - name: Test NKI -> Ableton converter
+        run: dotnet run --project NkiConverter.Tests/NkiConverter.Tests.csproj --configuration Release
+
       - name: Publish
         run: dotnet publish NkxToolUI.csproj --configuration Release --no-build --output publish
 

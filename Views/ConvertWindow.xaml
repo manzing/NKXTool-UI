@@ -1,0 +1,181 @@
+<Window x:Class="NkxToolUI.Views.ConvertWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Convert NKI to Ableton Sampler"
+        Height="840"
+        Width="960"
+        MinHeight="740"
+        MinWidth="800"
+        Background="{DynamicResource WindowBrush}"
+        Foreground="{DynamicResource BodyTextBrush}"
+        WindowStartupLocation="CenterScreen">
+    <Grid Margin="20"
+          Background="{DynamicResource WindowBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0">
+            <TextBlock x:Name="HeaderTextBlock"
+                       FontSize="26"
+                       FontWeight="Bold" />
+            <TextBlock x:Name="DescriptionTextBlock"
+                       Margin="0,8,0,0"
+                       Foreground="{StaticResource MutedTextBrush}"
+                       TextWrapping="Wrap" />
+        </StackPanel>
+
+        <Grid Grid.Row="1" Margin="0,20,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <DockPanel>
+                <TextBlock x:Name="InputFilesLabel"
+                           FontWeight="SemiBold"
+                           VerticalAlignment="Center" />
+                <StackPanel DockPanel.Dock="Right"
+                            Orientation="Horizontal"
+                            HorizontalAlignment="Right">
+                    <Button x:Name="AddFilesButton"
+                            Width="140"
+                            Style="{StaticResource SecondaryButtonStyle}"
+                            Click="AddFilesButton_OnClick" />
+                    <Button x:Name="AddFolderButton"
+                            Width="140"
+                            Margin="8,0,0,0"
+                            Style="{StaticResource SecondaryButtonStyle}"
+                            Click="AddFolderButton_OnClick" />
+                    <Button x:Name="RemoveSelectedButton"
+                            Width="140"
+                            Margin="8,0,0,0"
+                            Style="{StaticResource SecondaryButtonStyle}"
+                            Click="RemoveSelectedButton_OnClick" />
+                </StackPanel>
+            </DockPanel>
+
+            <ListBox x:Name="FilesListBox"
+                     Grid.Row="1"
+                     Margin="0,8,0,0"
+                     Height="150"
+                     SelectionMode="Extended"
+                     AllowDrop="True"
+                     Drop="FilesListBox_OnDrop" />
+        </Grid>
+
+        <Grid Grid.Row="2" Margin="0,16,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="170" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="140" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock x:Name="OutputFolderLabel"
+                       VerticalAlignment="Center"
+                       FontWeight="SemiBold" />
+            <TextBox x:Name="OutputFolderTextBox"
+                     Grid.Column="1" />
+            <Button x:Name="BrowseOutputFolderButton"
+                    Grid.Column="2"
+                    Margin="12,6,0,0"
+                    Style="{StaticResource SecondaryButtonStyle}"
+                    Click="BrowseOutputFolderButton_OnClick" />
+        </Grid>
+
+        <Grid Grid.Row="3" Margin="0,12,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="170" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="140" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock x:Name="SampleFolderLabel"
+                       VerticalAlignment="Center"
+                       FontWeight="SemiBold" />
+            <TextBox x:Name="SampleFolderTextBox"
+                     Grid.Column="1" />
+            <Button x:Name="BrowseSampleFolderButton"
+                    Grid.Column="2"
+                    Margin="12,6,0,0"
+                    Style="{StaticResource SecondaryButtonStyle}"
+                    Click="BrowseSampleFolderButton_OnClick" />
+        </Grid>
+
+        <Border Grid.Row="4"
+                Margin="0,18,0,0"
+                Padding="14"
+                Background="{StaticResource PanelBrush}"
+                BorderBrush="{StaticResource BorderBrush}"
+                BorderThickness="1"
+                CornerRadius="8">
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock x:Name="LiveVersionLabel"
+                               FontWeight="SemiBold"
+                               VerticalAlignment="Center"
+                               Margin="0,0,16,0" />
+                    <RadioButton x:Name="Live12RadioButton"
+                                 GroupName="ConvertLiveVersion"
+                                 IsChecked="True"
+                                 VerticalAlignment="Center"
+                                 Margin="0,0,16,0" />
+                    <RadioButton x:Name="Live11RadioButton"
+                                 GroupName="ConvertLiveVersion"
+                                 VerticalAlignment="Center" />
+                </StackPanel>
+                <TextBlock x:Name="HintTextBlock"
+                           Margin="0,10,0,0"
+                           Foreground="{StaticResource MutedTextBrush}"
+                           TextWrapping="Wrap" />
+            </StackPanel>
+        </Border>
+
+        <TextBlock x:Name="LogLabel"
+                   Grid.Row="5"
+                   Margin="0,18,0,8"
+                   FontWeight="SemiBold" />
+
+        <TextBox x:Name="LogTextBox"
+                 Grid.Row="6"
+                 AcceptsReturn="True"
+                 TextWrapping="Wrap"
+                 VerticalScrollBarVisibility="Auto"
+                 HorizontalScrollBarVisibility="Auto"
+                 IsReadOnly="True"
+                 FontFamily="Consolas" />
+
+        <DockPanel Grid.Row="7" Margin="0,18,0,0">
+            <TextBlock x:Name="StatusTextBlock"
+                       VerticalAlignment="Center"
+                       Foreground="{StaticResource MutedTextBrush}" />
+
+            <StackPanel DockPanel.Dock="Right"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Right">
+                <Button x:Name="OpenOutputButton"
+                        Width="150"
+                        Margin="0,0,8,0"
+                        IsEnabled="False"
+                        Style="{StaticResource SecondaryButtonStyle}"
+                        Click="OpenOutputButton_OnClick" />
+                <Button x:Name="RunConvertButton"
+                        Width="150"
+                        Style="{StaticResource PrimaryButtonStyle}"
+                        Click="RunConvertButton_OnClick" />
+                <Button x:Name="CloseWindowButton"
+                        Width="110"
+                        Margin="8,0,0,0"
+                        Style="{StaticResource SecondaryButtonStyle}"
+                        Click="CloseWindowButton_OnClick" />
+            </StackPanel>
+        </DockPanel>
+    </Grid>
+</Window>
